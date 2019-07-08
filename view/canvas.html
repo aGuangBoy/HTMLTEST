@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../css/canvas.css">
+</head>
+<body onload="draw();">
+    <canvas id="tutorial" width="500px" height="500px"></canvas>
+
+    <div class="line"></div>
+    <div class="piece pieceMoving"></div>
+</body>
+
+<script type="application/javascript">
+    var canvas = document.getElementById('tutorial');
+    var ctx = canvas.getContext('2d');
+    var ball = {
+        x: 100,
+        y: 100,
+        vx: 5,
+        vy: 2,
+        radius: 25,
+        color: 'blue',
+        draw: function() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2, true);
+            ctx.closePath();
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+    }
+    var raf;
+    var running;
+    function draw() {
+        // var canvas = document.getElementById('tutorial');
+        // if(canvas.getContext) {
+        //     var ctx = canvas.getContext('2d');
+        // }
+        // ctx.fillRect(50, 50, 200, 200); // 填充矩形
+        // ctx.clearRect(75, 75 , 150, 150); // 清楚指定矩形区域
+        // ctx.strokeRect(90, 90, 120, 120); // 绘制边框
+
+        // moveTo(): 将触点移动到指定的坐标且不会出现移动轨迹
+        // lineTo(): 绘制一条从当前位置到指定坐标位置的直线
+
+        // ctx.arc(75,75,50,0,Math.PI*2,true); // 绘制
+        // ctx.moveTo(110,75);
+        // ctx.arc(75,75,35,0,Math.PI,false);  // 口(顺时针)
+        // ctx.moveTo(65,65);
+        // ctx.arc(60,65,5,0,Math.PI*2,true);  // 左眼
+        // ctx.moveTo(95,65);
+        // ctx.arc(90,65,5,0,Math.PI*2,true);  // 右眼
+
+        // ctx.moveTo(75,40);
+        // ctx.bezierCurveTo(75,37,70,25,50,25);
+        // ctx.bezierCurveTo(20,25,20,62.5,20,62.5);
+        // ctx.bezierCurveTo(20,80,40,102,75,120);
+        // ctx.bezierCurveTo(110,102,130,80,130,62.5);
+        // ctx.bezierCurveTo(130,62.5,130,25,100,25);
+        // ctx.bezierCurveTo(85,25,75,37,75,40);
+
+        // ctx.beginPath();
+        // var rec = new Path2D();
+        // rec.rect(50, 50, 30, 30);
+        // var cir = new Path2D();
+        // cir.moveTo(200, 200);
+        // cir.arc(100, 100, 30, 0, 2 * Math.PI);
+        // ctx.fillStyle = "rgb(255,165,0)";
+        // ctx.stroke(rec);
+        // ctx.fill(cir);
+
+        // for(let i = 0; i < 5; i ++) {
+        //     for(let j = 0; j < 5; j ++) {
+        //         ctx.fillStyle = 'rgb(0, ' + Math.floor(255-42.5*i) + ',' + Math.floor(255-42.5*j) + ')';
+        //         ctx.fillRect(50 * i, 50 * j , 50, 50);
+        //     }
+        // }
+        //
+        // for(let m = 0; m < 5; m ++) {
+        //     for(let n = 0; n < 5; n ++) {
+        //         ctx.strokeStyle = 'rgb(' + Math.floor(255-42.5*m) + ',' + Math.floor(255-42.5*n) + ',0)';
+        //         ctx.beginPath();
+        //         ctx.arc(50 * m + 275, 50 * n + 275, 25, 0, 2 * Math.PI, true);
+        //         ctx.stroke();
+        //     }
+        // }
+        //
+        // ctx.globalAlpha = 0.2;
+        // for(let i = 0; i < 5; i ++) {
+        //     ctx.beginPath();
+        //     ctx.arc(150, 150, 25 + 25 * i, 0, 2 * Math.PI, true);
+        //     ctx.fill();
+        // }
+
+        // -------------------------- 渐变 Gradients -----------------------------
+        // let linearGradient = ctx.createLinearGradient(0, 0, 0, 250);
+        // linearGradient.addColorStop(0, '#00ABEB');
+        // linearGradient.addColorStop(0.5, '#fff');
+        // linearGradient.addColorStop(0.5, '#26C000');
+        // linearGradient.addColorStop(1, '#fff');
+        // ctx.fillStyle = linearGradient;
+        // ctx.fillRect(0,0,250,250);
+        //
+        // let radialGradient = ctx.createRadialGradient(50, 50, 20, 60, 60, 35);
+        // radialGradient.addColorStop(0, '#A7D30C');
+        // radialGradient.addColorStop(0.9, '#019F62');
+        // radialGradient.addColorStop(1, 'rgba(1,159,98,0)');
+        // ctx.fillStyle = radialGradient;
+        // ctx.fillRect(0, 0, 150, 150);
+        //
+        // ctx.font = "24px serif";
+        // ctx.fontcolor("A7D30C");
+        // ctx.fillText("Hello World", 10, 50);
+
+        // ---------------------- 移动 Translate -----------------------
+        // for(let i = 0; i < 3; i ++) {
+        //     for(let j = 0; j < 3; j ++) {
+        //         ctx.save();
+        //         ctx.fillStyle = 'rgb(' + (51 * i) + ', ' + (255 - 51 * i) + ', 255)';
+        //         ctx.translate(10 + 40 * i, 10 + 40 * j);
+        //         ctx.fillRect(0, 0, 30, 30);
+        //
+        //         ctx.restore();
+        //     }
+        // }
+
+        // ctx.translate(150, 150);
+        // for(let i = 1; i < 6; i ++) {
+        //     ctx.save();
+        //     ctx.fillStyle = 'rgb('+(51*i)+','+(255-51*i)+',255)';
+        //     for(let j = 0; j < i * 6; j ++) {
+        //         ctx.rotate(2 * Math.PI / (6 * i));
+        //         ctx.beginPath();
+        //         ctx.arc(0,i*12.5,5,0,Math.PI*2,true);
+        //         ctx.fill();
+        //     }
+        //     ctx.restore();
+        // }
+
+        // ------------------------ 转动 --------------------------
+        // let sun = new Image();
+        // let moon = new Image();
+        // let earth = new Image();
+        // function init() {
+        //     sun.src = 'https://mdn.mozillademos.org/files/1456/Canvas_sun.png';
+        //     moon.src = 'https://mdn.mozillademos.org/files/1443/Canvas_moon.png';
+        //     earth.src = 'https://mdn.mozillademos.org/files/1429/Canvas_earth.png';
+        //     window.requestAnimationFrame(draw);
+        // }
+        //
+        // function draw() {
+        //     let ctx = document.getElementById('tutorial').getContext('2d');
+        //     ctx.globalCompositeOperation = 'destination-over';
+        //     ctx.clearRect(0, 0, 500, 500);
+        //     ctx.fillStyle = 'rgba(0,0,0,0.4)';
+        //     ctx.strokeStyle = 'rgba(0,153,255,0.4)';
+        //     ctx.save();
+        //     ctx.translate(150, 150);
+        //
+        //     let time = new Date();
+        //     ctx.rotate(((2*Math.PI)/60)*time.getSeconds() + ((2*Math.PI)/60000)*time.getMilliseconds());
+        //     ctx.translate(105, 0);
+        //     ctx.fillRect(0,-12,50,24); // Shadow
+        //     ctx.drawImage(earth,-12,-12);
+        //
+        //     ctx.save();
+        //     ctx.rotate(((2*Math.PI)/6)*time.getSeconds() + ((2*Math.PI)/6000)*time.getMilliseconds());
+        //     ctx.translate(0, 28.5);
+        //     ctx.drawImage(moon,-3.5,-3.5);
+        //     ctx.restore();
+        //     ctx.restore();
+        //
+        //     ctx.beginPath();
+        //     ctx.arc(150,150,105,0,Math.PI*2,false); // Earth orbit
+        //     ctx.stroke();
+        //
+        //     ctx.drawImage(sun,0,0,300,300);
+        //
+        //     window.requestAnimationFrame(draw);
+        // }
+        // init();
+
+        // ------------------------ 时钟 --------------------------
+        // function clock(){
+        //     var now = new Date();
+        //     var ctx = document.getElementById('tutorial').getContext('2d');
+        //     ctx.save();
+        //     ctx.clearRect(0,0,500,500);
+        //     ctx.translate(75,75);
+        //     ctx.scale(0.4,0.4);
+        //     ctx.rotate(-Math.PI/2);
+        //     ctx.strokeStyle = "black";
+        //     ctx.fillStyle = "white";
+        //     ctx.lineWidth = 8;
+        //     ctx.lineCap = "round";
+        //
+        //     // Hour marks
+        //     ctx.save();
+        //     for (var i=0;i<12;i++){
+        //         ctx.beginPath();
+        //         ctx.rotate(Math.PI/6);
+        //         ctx.moveTo(100,0);
+        //         ctx.lineTo(120,0);
+        //         ctx.stroke();
+        //     }
+        //     ctx.restore();
+        //
+        //     // Minute marks
+        //     ctx.save();
+        //     ctx.lineWidth = 5;
+        //     for (i=0;i<60;i++){
+        //         if (i%5!=0) {
+        //             ctx.beginPath();
+        //             ctx.moveTo(117,0);
+        //             ctx.lineTo(120,0);
+        //             ctx.stroke();
+        //         }
+        //         ctx.rotate(Math.PI/30);
+        //     }
+        //     ctx.restore();
+        //
+        //     var sec = now.getSeconds();
+        //     var min = now.getMinutes();
+        //     var hr  = now.getHours();
+        //     hr = hr>=12 ? hr-12 : hr;
+        //
+        //     ctx.fillStyle = "black";
+        //
+        //     // write Hours
+        //     ctx.save();
+        //     ctx.rotate( hr*(Math.PI/6) + (Math.PI/360)*min + (Math.PI/21600)*sec );
+        //     ctx.lineWidth = 14;
+        //     ctx.beginPath();
+        //     ctx.moveTo(-20,0);
+        //     ctx.lineTo(80,0);
+        //     ctx.stroke();
+        //     ctx.restore();
+        //
+        //     // write Minutes
+        //     ctx.save();
+        //     ctx.rotate( (Math.PI/30)*min + (Math.PI/1800)*sec )
+        //     ctx.lineWidth = 10;
+        //     ctx.beginPath();
+        //     ctx.moveTo(-28,0);
+        //     ctx.lineTo(112,0);
+        //     ctx.stroke();
+        //     ctx.restore();
+        //
+        //     // Write seconds
+        //     ctx.save();
+        //     ctx.rotate(sec * Math.PI/30);
+        //     ctx.strokeStyle = "#D40000";
+        //     ctx.fillStyle = "#D40000";
+        //     ctx.lineWidth = 6;
+        //     ctx.beginPath();
+        //     ctx.moveTo(-30,0);
+        //     ctx.lineTo(83,0);
+        //     ctx.stroke();
+        //     ctx.beginPath();
+        //     ctx.arc(0,0,10,0,Math.PI*2,true);
+        //     ctx.fill();
+        //     ctx.beginPath();
+        //     ctx.arc(95,0,10,0,Math.PI*2,true);
+        //     ctx.stroke();
+        //     ctx.fillStyle = "rgba(0,0,0,0)";
+        //     ctx.arc(0,0,3,0,Math.PI*2,true);
+        //     ctx.fill();
+        //     ctx.restore();
+        //
+        //     ctx.beginPath();
+        //     ctx.lineWidth = 14;
+        //     ctx.strokeStyle = '#325FA2';
+        //     ctx.arc(0,0,142,0,Math.PI*2,true);
+        //     ctx.stroke();
+        //
+        //     ctx.restore();
+        //
+        //     window.requestAnimationFrame(clock);
+        // }
+        //
+        // window.requestAnimationFrame(clock);
+
+        // ------------------------ 小球 ----------------------
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ball.draw();
+        ball.x += ball.vx;
+        ball.y += ball.vy;
+        if (ball.y + ball.vy > canvas.height || ball.y + ball.vy < 0) {
+            ball.vy = -ball.vy;
+        }
+        if(ball.x + ball.vx > canvas.width || ball.x + ball.vx < 0 ) {
+            ball.vx = -ball.vx;
+
+        }
+        raf = window.requestAnimationFrame(draw);
+    };
+
+    function clear() {
+        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+    };
+
+    canvas.addEventListener('mousemove', function(e){
+        if (!running) {
+            clear();
+            ball.x = e.clientX;
+            ball.y = e.clientY;
+            ball.draw();
+        }
+    });
+
+    canvas.addEventListener('click',function(e){
+        if (!running) {
+            raf = window.requestAnimationFrame(draw);
+            running = true;
+        }
+    });
+
+    canvas.addEventListener('mouseout', function(e){
+        window.cancelAnimationFrame(raf);
+        running = false;
+    });
+
+    ball.draw();
+</script>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
