@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html,
+        body,
+        #mapDiv {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #timeSlider {
+            position: absolute;
+            left: 100px;
+            right: 100px;
+            bottom: 30px;
+        }
+
+        #infoDiv {
+            height: 200px;
+            padding: 10px;
+            width: 280px;
+        }
+
+        #infoDiv span {
+            color: #f9c653;
+            font-size: 12pt;
+            font-weight: bolder;
+        }
+    </style>
+    <link rel="stylesheet" href="https://js.arcgis.com/4.12/esri/themes/dark/main.css" />
+    <script src="https://js.arcgis.com/4.12/"></script>
+    <script>
+        require([
+            "esri/Map",
+            "esri/views/MapView",
+            "esri/layers/GeoJSONLayer",
+            "esri/widgets/TimeSlider",
+            "esri/widgets/Expand",
+            "esri/widgets/Legend"
+        ], function(Map, MapView, GeoJSONLayer, TimeSlider, Expand, Legend) {
+            let layerView;
+
+        });
+    </script>
+</head>
+<body>
+    <div id="mapDiv"></div>
+    <!--<div id="timeSlider"></div>-->
+    <!--<div id="infoDiv" class="esri-widget">-->
+        <!--<div><b>USGS Earthquakes</b></div>-->
+        <!--<br />-->
+        <!--<div id="statsDiv" class="esri-widget"></div>-->
+    <!--</div>-->
+</body>
+</html>

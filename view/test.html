@@ -353,7 +353,74 @@
             }
         }
 
+
+
+
+        /*下拉框*/
+        .searchDiv{
+            display: inline-block;
+            position: absolute;
+            top: 50px;
+            left: 529px;
+            width: 100px;
+            height: 100px;
+            z-index: 10;
+        }
+        .searchDiv ul{
+            position: absolute;
+            width: 100%;
+            margin-top: 35px;
+            background-color: #ecf0f1;
+        }
+        .searchDiv ul li{
+            width: 100%;
+            height: 30px;
+            background-color: #ecf0f1;
+            cursor: pointer;
+            list-style: none;
+        }
+        .searchDiv ul li:hover{
+            background-color: #1abc9c;
+            color: #ecf0f1;
+        }
+        .searchTypeSpan{
+            position: absolute;
+            margin-left: calc(50px / 2);
+            margin-top: 4px;
+        }
+        .searchSelect{
+            display: inline-block;
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background-color: #ecf0f1;
+            cursor: Pointer;
+            color: #1abc9c;
+        }
+        .searchSelect:hover{
+            background-color: #1abc9c;
+            color: #ecf0f1;
+            /*animation: showSearchBtn 1s linear ;*/
+        }
+        @keyframes showSearchBtn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes hideSearchBtn {
+
+        }
+
+
+        .showSearchBtnClass{
+            animation: showSearchBtn 1s linear ;
+        }
+
     </style>
+    <script src="../js/jquery-2.1.1.min.js"></script>
 </head>
 <body>
     <div style="height:100px;overflow: hidden;">
@@ -377,20 +444,54 @@
     </div>
 
 
-    <div class="out">
-        <div class="fade-in">
-            <div class="container">
-                <div class="one common "></div>
-                <div class="two common"></div>
-                <div class="three common"></div>
-                <div class="four common"></div>
-                <div class="five common"></div>
-                <div class="six common"></div>
-                <div class="seven common"></div>
-                <div class="eight common"></div>
-            </div>
+    <!--<div class="out">-->
+        <!--<div class="fade-in">-->
+            <!--<div class="container">-->
+                <!--<div class="one common "></div>-->
+                <!--<div class="two common"></div>-->
+                <!--<div class="three common"></div>-->
+                <!--<div class="four common"></div>-->
+                <!--<div class="five common"></div>-->
+                <!--<div class="six common"></div>-->
+                <!--<div class="seven common"></div>-->
+                <!--<div class="eight common"></div>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+
+
+    <div class="searchDiv">
+        <div id="searchSelectBtn" class="searchSelect">
+            <span style="position: absolute;width: 5px;height: 30px;background-color: #1abc9c;"></span>
+            <span style="position: absolute;margin-left: calc(45px / 2);margin-top: 4px;">搜索 </span>
         </div>
+        <ul id="searchMode" class="animate" style="opacity: 0">
+            <li class="animate"><span class="searchTypeSpan">百度 </span></li>
+            <li class="animate"><span class="searchTypeSpan">点位 </span></li>
+        </ul>
     </div>
+
+
+    <script type="text/javascript">
+        let searchSelectBtn = document.getElementById("searchSelectBtn");
+        let flag = true;
+        searchSelectBtn.onclick = function() {
+            if(flag) {
+                $("#searchMode").animate({
+                    'opacity': '1',
+                    'margin-top': '40px'
+                })
+                flag = false;
+            } else {
+                $("#searchMode").animate({
+                    'opacity': '0',
+                    'margin-top': '30px'
+                })
+                flag = true;
+            }
+
+        }
+    </script>
 </body>
 </html>
 
